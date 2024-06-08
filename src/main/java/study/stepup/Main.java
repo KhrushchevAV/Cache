@@ -8,5 +8,16 @@ public class Main {
         System.out.println(fr.doubleValue());
         System.out.println(fr.getCallCount());
         System.out.println("---\n");
+
+        // 2. Дробь с кэшированием
+        Fractionable frCached = Util.cache(fr);
+        frCached.setNum(13);
+        System.out.println(frCached.doubleValue());
+        System.out.println(frCached.doubleValue());
+        System.out.println(frCached.getCallCount());
+        frCached.setDenum(32);
+        System.out.println(frCached.doubleValue());
+        System.out.println(frCached.doubleValue());
+        System.out.println(frCached.getCallCount());
     }
 }
