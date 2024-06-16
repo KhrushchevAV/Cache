@@ -8,4 +8,6 @@ import java.lang.annotation.Target;
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Cache {
+    // время жизни каша
+    int ttl() default 0;
 }
