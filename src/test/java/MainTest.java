@@ -1,7 +1,7 @@
 import org.junit.jupiter.api.Test;
 import study.stepup.Fraction;
 import study.stepup.Fractionable;
-import study.stepup.Util;
+import study.stepup.util.Util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;

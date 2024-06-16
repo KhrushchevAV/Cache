@@ -5,4 +5,5 @@ public interface Fractionable {
     void setNum(int num) ;
     void setDenum(int denum) ;
     int getCallCount();
+    String toString();
 }

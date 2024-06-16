@@ -1,6 +1,4 @@
-package study.stepup;
-
-import study.stepup.util.Utilcache;
+package study.stepup.util;
 
 import java.lang.reflect.Proxy;
 

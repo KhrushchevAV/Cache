@@ -1,11 +1,7 @@
 package study.stepup.util;
 
-import study.stepup.Cache;
-import study.stepup.Mutator;
-
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
-import java.util.HashMap;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class Utilcache implements InvocationHandler {
@@ -13,7 +9,7 @@ public class Utilcache implements InvocationHandler {
     // текущее состояние кэшируемого объекта
     private State curState = new State();
     // теперь исходим из того, что кэшировать надо несколько методов, поэтому храним в мапе
-    private ConcurrentHashMap<Method, ConcurrentHashMap<State, CacheValue>> cache = new ConcurrentHashMap<>();
+    private ConcurrentHashMap<Method, ConcurrentHashMap<String, CacheValue>> cache = new ConcurrentHashMap<>();
 
     // а объектов могли закашировать несколько, поэтому тоже мапа
     // private HashMap<Object, State> curState = new HashMap<>();
@@ -34,19 +30,20 @@ public class Utilcache implements InvocationHandler {
 
         // кэшируемый метод
         if (m.isAnnotationPresent(Cache.class)) {
-            // беда с двойными мапами - проверяя вторую забываешь, что может не быть и первой ))
-            if (!cache.contains(m)) {
+            // есть у нас мапа для этого метода?
+            if (!cache.containsKey(m)) {
                 // первый вызов метода m
-                cache.put(m, new ConcurrentHashMap<State, CacheValue>());
+                cache.put(m, new ConcurrentHashMap<String, CacheValue>());
             }
 
             // для этого метода m уже есть такое состояние в кэше?
-            if (cache.get(m).contains(curState)) {
-                return cache.get(m).get(curState).getObj();
+            if (cache.get(m).containsKey(curState.toString())) {
+                System.out.println("Нашли в кэше значение для метода "+m.toString()+" и состояния " + curState.toString()+" его и вернем! ");
+                return cache.get(m).get(curState.toString()).getObj();
             }
             else {
-                cache.get(m).put(curState, new CacheValue(m.invoke(obj, args)));
-                return cache.get(m).get(curState).getObj();
+                cache.get(m).put(curState.toString(), new CacheValue(m.invoke(obj, args)));
+                return cache.get(m).get(curState.toString()).getObj();
             }
         }
 
