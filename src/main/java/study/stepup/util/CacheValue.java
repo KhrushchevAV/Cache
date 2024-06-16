@@ -22,5 +22,7 @@ public class CacheValue {
         this.obj = obj;
     }
 
-
+    public long getLastUsage() {
+        return lastUsage;
+    }
 }

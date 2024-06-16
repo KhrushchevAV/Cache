@@ -30,6 +30,7 @@ public class State {
 
     public void changeState(Method m, Object[] args) {
         // аргументы вида "java.lang.Object;@4ae1f202" - как-то не очень
+        // сделаем вручную toString() для каждого аргумента
         String strArg = "";
         for (int i = 0; i < args.length; i++) {
             strArg += args[i].toString();
